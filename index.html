@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>翻牌</title>
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+</head>
+<body>
+	<div class="wrap">
+		<div class="rule">
+			<img class="rule_img" src="images/gameRule.jpg">
+			<p></p>
+		</div>
+		<div class="head">
+			<img src="images/1.jpg">
+			<img src="images/start.png">
+			<p>&gt活动规则&lt</p>
+		</div>
+		<!-- 第一关 -->
+		<div class="first">
+			<img src="images/first.png">
+		</div>
+		<!-- 第一关的图片 -->
+		<div class="first_img">
+			<div class="top clearfix">
+				<div class="left">0</div>
+				<div class="right">9</div>
+				<div class="center">100%</div>
+				<div class="color"></div>
+			</div>
+			<div class="middle">
+				<div class="middle_img">
+					<img src="images/goreTex.png">
+					<img src="images/goretex1.png">		
+				</div>
+				<div class="middle_img">
+					<img src="images/goreTex.png">
+					<img src="images/goretex1.png">		
+				</div>
+				<div class="middle_img">
+					<img src="images/goreTex.png">
+					<img src="images/goretex1.png">		
+				</div>
+				<div class="bottom">
+					<img src="images/choujiang.png">
+					<p>你有的抽奖次数:3次</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="jquery.easing.min.js"></script>
+<script type="text/javascript">
+	$wrap=$(".wrap");
+	$p1=$(".rule p")
+	$p2=$(".head p")
+	$img1=$(".head img:nth-child(2)");
+	$first=$(".first");
+	$p1.on("touchstart",function(){
+		$(".head").show().siblings().hide();
+	})
+	// 翻大牌按钮
+	$img1.on("touchstart",function(){
+		$first.show().siblings().hide();
+		$first.animate({
+			top:"0"
+		},1000,"easeOutBounce");
+	})
+	$p2.on("touchstart",function(){
+		$(".rule").show().siblings().hide();
+	})
+
+	//第一关按钮 
+	var $firstBtn=$(".first img");
+	var $first_img=$(".first_img");
+	$firstBtn.click(function(){
+		$first_img.show().siblings().hide();
+				// 第一关图片
+		// 倒计时10秒
+		var right=document.querySelector(".right");
+		var color=document.querySelector(".color");
+		var time=10;
+		var time1=9;
+
+		gameOverFn();
+		function gameOverFn(){
+			var timer1=setInterval(function(){	
+				
+				if(time1<0){
+					clearInterval(timer1);
+				}else{
+					right.innerText=time1;
+				}
+				time1--;
+			},1000);
+
+
+			// time = time*100;
+			var w=color.offsetWidth;
+			var t=time;
+			var timer=setInterval(function(){				
+			var scale=time/t
+				if(time<0){
+					clearInterval(timer);
+				}else{
+					// right.innerText=time;
+					color.style.width=w*scale+"px";
+				}
+				time-=0.02;
+			},20);
+		}
+
+
+
+	})
+
+	// 
+		// 创建图片
+		// var arr=["goretex1","goretex1","goretex2","goretex2","goretex3","goretex3",];
+		var $middle_img=$(".middle_img");
+		$middle_img.on("touchstart",function(){
+			console.log("点击了")
+			$(".middle_img img:nth-child(1)").css('transform', 'rotateY(180deg)')
+			$(".middle_img img:nth-child(2)").css('transform', 'rotateY(360deg)')
+		})
+
+
+
+</script>
+</html>
